@@ -4,16 +4,7 @@
     <div class="p-2">
         @include('_message')
 
-        <div class="col-auto d-flex justify-content-end mt-2">
-            <ol class="breadcrumb float-sm-left">
-                <li class="breadcrumb-item">
-                    <a href="{{ url('admin/admin/list') }}">Admin</a>
-                </li>
-                <li class="breadcrumb-item active">
-                    Add
-                </li>
-            </ol>
-        </div>
+        <x-admin-breadcrumb address="Add" />
 
         <div class="col-md-12 mt-2">
             <div class="card card-primary">

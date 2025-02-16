@@ -46,7 +46,6 @@
     <div class="app-wrapper">
         @include('layouts.header')
 
-
         @yield('content')
 
         @include('layouts.footer')

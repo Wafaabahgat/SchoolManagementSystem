@@ -12,14 +12,9 @@
                     <div class="col-auto">
                         <h1>Admin List</h1>
                     </div>
-                    <div class="col-auto">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item">
-                                <a href="{{ url('admin/dashboard') }}">Home</a>
-                            </li>
-                            <li class="breadcrumb-item active">List</li>
-                        </ol>
-                    </div>
+
+                    <x-admin-breadcrumb address="List" />
+
                 </div>
             </div>
         </section>
