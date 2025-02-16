@@ -30,6 +30,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
     Route::get('/admin/list', [AdminController::class, 'list'])->name('list');
     Route::get('/admin/add', [AdminController::class, 'add'])->name('add');
     Route::post('/admin/add', [AdminController::class, 'insert'])->name('insert');
+
+    Route::get('/admin/edit/{id}', [AdminController::class, 'edit'])->name('edit');
+    Route::put('/admin/edit/{id}', [AdminController::class, 'update'])->name('update');
+    Route::delete('/admin/delete/{id}', [AdminController::class, 'delete'])->name('delete');
 });
 
 

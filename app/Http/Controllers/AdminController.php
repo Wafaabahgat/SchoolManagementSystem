@@ -19,7 +19,7 @@ class AdminController extends Controller
             'admins' => $admins,
         ];
 
-        return view('admin.admin.list', $data);
+        return view('admin.admin.index', $data);
     }
 
     public function add()
@@ -43,5 +43,47 @@ class AdminController extends Controller
             'role' => 'admin',
         ]);
         return redirect()->route('admin.list')->with('success', 'Admin added successfully!');
+    }
+
+    public function edit($id)
+    {
+        $data['user'] = User::findOrFail($id);
+
+        if ($data['user']) {
+            $data['head_title'] = 'Updated Admin';
+            return view('admin.admin.edit', $data);
+        } else {
+            abort(404);
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $data['head_title'] = 'Updated Admin';
+
+        $updateData = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'role' => 'admin',
+        ];
+
+        if ($request->filled('password')) {
+            $updateData['password'] = Hash::make($request->password);
+        }
+
+        $user->update($updateData);
+
+        return redirect()->route('admin.list')->with('success', 'Admin Updated successfully!');
+    }
+
+
+    public function delete($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return redirect()->route('admin.list')->with('success', 'Admin Deleted successfully!');
     }
 }

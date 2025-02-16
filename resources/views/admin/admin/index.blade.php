@@ -44,6 +44,7 @@
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Created At</th>
+                                        <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -53,6 +54,16 @@
                                             <td>{{ $admin->name }}</td>
                                             <td>{{ $admin->email }}</td>
                                             <td>{{ $admin->created_at }}</td>
+                                            <td class="d-flex gap-2">
+                                                <a href="{{ route('admin.edit', $admin->id) }}"
+                                                    class="btn btn-success btn-sm">Edit</a>
+                                                <form action="{{ route('admin.delete', $admin->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit"
+                                                        class="btn btn are_you_shur btn-sm btn-danger">Delete</button>
+                                                </form>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
