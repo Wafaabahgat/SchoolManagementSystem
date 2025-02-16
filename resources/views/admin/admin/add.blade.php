@@ -14,21 +14,14 @@
                 <form action="{{ route('admin.insert') }}" method="POST">
                     @csrf
                     <div class="card-body">
-                        <div class="form-group mt-2">
-                            <label for="name">Name</label>
-                            <input type="text" id="name" required name="name" class="form-control mt-1"
-                                placeholder="Name">
-                        </div>
-                        <div class="form-group mt-2">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" required name="email" class="form-control mt-1"
-                                placeholder="Email">
-                        </div>
-                        <div class="form-group mt-2">
-                            <label for="password">Password</label>
-                            <input type="password" id="password" required class="form-control mt-1" name="password"
-                                placeholder="Password">
-                        </div>
+                        <x-ui.input label="Name" type="text" id="name" name="name" placeholder="Name"
+                            value="{{ old('name') }}" />
+
+                        <x-ui.input label="Email" type="email" id="email" name="email" placeholder="Email"
+                            value="{{ old('email') }}" />
+
+                        <x-ui.input label="Password" type="password" id="password" name="password"
+                            placeholder="Password" />
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary mt-1 col-md-1">Add</button>

@@ -30,11 +30,18 @@ class AdminController extends Controller
 
     public function insert(Request $request)
     {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:4',
+            // 'role' => 'required|in:admin,user',
+        ]);
+
         $data['head_title'] = 'Add New Admin';
         // dd($request->all());
-        if (User::where('email', $request->email)->exists()) {
-            return redirect()->back()->with(['error' => 'This email is already in use.']);
-        }
+        // if (User::where('email', $request->email)->exists()) {
+        //     return redirect()->back()->with(['error' => 'This email is already in use.']);
+        // }
 
         User::create([
             'name' => $request->name,
@@ -59,6 +66,10 @@ class AdminController extends Controller
 
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'email' => 'required|email|unique:users,email,' . $id,
+        ]);
+
         $user = User::findOrFail($id);
 
         $data['head_title'] = 'Updated Admin';
