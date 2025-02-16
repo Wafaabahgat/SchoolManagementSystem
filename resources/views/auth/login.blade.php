@@ -36,6 +36,7 @@
 <!--begin::Body-->
 
 <body class="login-page bg-body-secondary">
+    {{-- @include('_message') --}}
     <div class="login-box">
         <div class="login-logo">
             <a href=""><b>Login</b></a>
@@ -47,17 +48,7 @@
             <div class="card-body login-card-body">
                 <p class="login-box-msg">Sign in to start your session</p>
 
-                @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
-                @endif
-
-                @if (session('error'))
-                    <div class="alert alert-danger">
-                        {{ session('error') }}
-                    </div>
-                @endif
+                @include('_message')
 
                 <form action="{{ url('login') }}" method="post">
                     @csrf

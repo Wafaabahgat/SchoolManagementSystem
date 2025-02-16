@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role'
     ];
 
     /**
@@ -50,5 +51,10 @@ class User extends Authenticatable
     static public function GetToken($remember_token)
     {
         return User::where('remember_token', '=', $remember_token)->first();
+    }
+
+    public static function getAdmins()
+    {
+        return User::select('users.*')->where('role', 'admin')->orderBy('id', 'desc')->get();
     }
 }

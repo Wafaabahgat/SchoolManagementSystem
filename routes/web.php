@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,16 +25,13 @@ Route::get('/reset/{token}', [AuthController::class, 'ResetPassword']);
 Route::post('/reset/{token}', [AuthController::class, 'PostResetPassword']);
 
 
-// Admin
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']], function () {
-    // Route::get('/dashboard', function () {
-    //     return view('admin.dashboard');
-    // });
     Route::get('/dashboard', [DashboardController::class, 'dashboard']);
-    Route::get('/admin/list', function () {
-        return view('admin.admin.list');
-    });
+    Route::get('/admin/list', [AdminController::class, 'list'])->name('list');
+    Route::get('/admin/add', [AdminController::class, 'add'])->name('add');
+    Route::post('/admin/add', [AdminController::class, 'insert'])->name('insert');
 });
+
 
 // Student
 Route::group(['prefix' => 'student', 'as' => 'student.', 'middleware' => ['student']], function () {

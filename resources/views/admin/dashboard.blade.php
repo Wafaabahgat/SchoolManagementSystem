@@ -2,6 +2,7 @@
 
 @section('content')
     <main class="app-main">
+        @include('_message')
         <!--begin::App Content Header-->
         <div class="app-content-header">
             <div class="container-fluid">
