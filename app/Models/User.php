@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Request;
 
 class User extends Authenticatable
 {
@@ -55,6 +56,20 @@ class User extends Authenticatable
 
     public static function getAdmins()
     {
-        return User::select('users.*')->where('role', 'admin')->orderBy('id', 'desc')->get();
+        $query = User::select('users.*')
+            ->where('role', 'admin');
+
+        if (request()->has('name') && request()->get('name') != '') {
+            $query->where('name', 'like', '%' . request()->get('name') . '%');
+        }
+        if (request()->has('email') && request()->get('email') != '') {
+            $query->where('email', 'like', '%' . request()->get('email') . '%');
+        }
+
+
+        $query = $query->orderBy('id', 'desc')
+            ->paginate(2);
+
+        return $query;
     }
 }
