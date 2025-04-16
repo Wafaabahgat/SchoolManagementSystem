@@ -10,16 +10,25 @@
                 <div class="card-header">
                     <h3 class="card-title">Edit Class</h3>
                 </div>
-                <form action="{{ route('admin.update', $user->id) }}" method="POST">
+                <form action="{{ route('admin.class.update', $class->id) }}" method="POST">
                     @csrf
                     @method('put')
                     <div class="card-body">
+                        <x-ui.input
+                            label="Name"
+                            type="text"
+                            id="name"
+                            name="name"
+                            placeholder="Name"
+                            value="{{ old('name', $class->name) }}"
+                        />
 
-                        <x-ui.input label="Name" type="text" id="name" name="name" placeholder="Name"
-                            value="{{ $user->name }}" />
-
-                        <x-ui.input label="Password" type="password" id="password" name="password"
-                            placeholder="Password" />
+                        <x-ui.select
+                            name="status"
+                            :options="['active' => 'Active', 'inactive' => 'Inactive']"
+                            label="Status"
+                            :selected="old('status', $class->status)"
+                        />
                     </div>
                     <div class="card-footer">
                         <button type="submit" class="btn btn-primary mt-1 col-md-1">Edit</button>
