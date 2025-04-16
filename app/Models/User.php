@@ -67,8 +67,7 @@ class User extends Authenticatable
         }
 
 
-        $query = $query->orderBy('id', 'desc')
-            ->paginate(2);
+        $query = $query->orderBy('id', 'desc')->paginate(1);
 
         return $query;
     }

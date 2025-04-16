@@ -4,6 +4,7 @@
     <div class="content-wrapper p-3">
 
         @include('_message')
+     
 
         <!-- Content Header (Page header) -->
         <section class="content-header">

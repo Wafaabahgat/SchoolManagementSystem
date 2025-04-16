@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ClassController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,6 +35,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
     Route::get('/admin/edit/{id}', [AdminController::class, 'edit'])->name('edit');
     Route::put('/admin/edit/{id}', [AdminController::class, 'update'])->name('update');
     Route::delete('/admin/delete/{id}', [AdminController::class, 'delete'])->name('delete');
+
+    // Class
+    Route::resource('/class', ClassController::class);
 });
 
 

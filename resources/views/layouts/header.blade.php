@@ -232,6 +232,13 @@
                                <p>Admin</p>
                            </a>
                        </li>
+                       <li class="nav-item">
+                           <a href="{{ url('admin/class') }}"
+                               class="nav-link {{ Request::is('admin/class') ? 'active' : '' }}">
+                               <i class="nav-icon fas fa-user"></i>
+                               <p>Class</p>
+                           </a>
+                       </li>
                    @endif
 
                    {{-- Student --}}

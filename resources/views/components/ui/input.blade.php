@@ -1,6 +1,6 @@
 @props(['name' => '', 'type' => 'text', 'placeholder' => '', 'id' => '', 'value' => '', 'label' => false])
 
-<div class="form-group mt-2">
+<div class="form-group mt-2 mb-2">
     @if ($label)
         <label for="">{{ $label }}</label>
     @endif
