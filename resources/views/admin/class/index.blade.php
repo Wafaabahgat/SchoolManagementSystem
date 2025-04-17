@@ -59,49 +59,51 @@
                             </button>
                         </div>
                         <!-- /.card-header -->
-                        @if ($classess->isNotEmpty())
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Status</th>
-                                    <th>Created By</th>
-                                    <th>Created At</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($classess as $class)
+                        {{-- @if ($classess->get()->isNotEmpty()) --}}
+
+                            <table class="table">
+                                <thead>
                                     <tr>
-                                        <td>{{ $class->id }}</td>
-                                        <td>{{ $class->name }}</td>
-                                        <td>{{ $class->status }}</td>
-                                        <td>{{ $class->created_by }}</td>
-                                        <td>{{ $class->created_at }}</td>
-                                        <td class="d-flex gap-2">
-                                            <a href="{{ route('admin.class.edit', $class->id) }}"
-                                                class="btn btn-success btn-sm">Edit</a>
-                                            <form action="{{ route('admin.class.destroy', $class->id) }}" method="POST">
-                                                @csrf
-                                                @method('delete')
-                                                <button type="submit"
-                                                    class="btn btn are_you_shur btn-sm btn-danger">Delete</button>
-                                            </form>
-                                        </td>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Status</th>
+                                        <th>Created By</th>
+                                        <th>Created At</th>
+                                        <th>Actions</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    @else
-                        <p class="text-center">No admins found.</p>
-                        @endif
+                                </thead>
+                                <tbody>
+                                    @foreach ($classess as $class)
+                                        <tr>
+                                            <td>{{ $class->id }}</td>
+                                            <td>{{ $class->name }}</td>
+                                            <td>{{ $class->status }}</td>
+                                            <td>{{ $class->created_by_name }}</td>
+                                            <td>{{ $class->created_at }}</td>
+                                            <td class="d-flex gap-2">
+                                                <a href="{{ route('admin.class.edit', $class->id) }}"
+                                                    class="btn btn-success btn-sm">Edit</a>
+                                                <form action="{{ route('admin.class.destroy', $class->id) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('delete')
+                                                    <button type="submit"
+                                                        class="btn btn are_you_shur btn-sm btn-danger">Delete</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        {{-- @else
+                            <p class="text-center">No admins found.</p>
+                        @endif --}}
 
                     </div>
                 </div>
             </div>
         </section>
 
-        {{-- {{ $admins->withQueryString()->links() }} --}}
+        {{ $classess->withQueryString()->links() }}
     </div>
 @endsection

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\ClassModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ClassController extends Controller
 {
@@ -11,14 +12,14 @@ class ClassController extends Controller
      * Display a listing of the resource.
      */
 
-    public function index()
+    public function index(Request $request)
     {
-        $classess = ClassModel::get();
+        $classess = ClassModel::getRecord($request);
         $data = [
             'head_title' => 'Class',
             'classess' => $classess,
         ];
-
+        // dd($data);
         return view('admin.class.index', $data);
     }
 
@@ -49,6 +50,7 @@ class ClassController extends Controller
         ClassModel::create([
             'name' => $request->name,
             'status' => $request->status,
+            'created_by' => Auth::user()->id,
         ]);
 
         return redirect()->route('admin.class.index')->with('success', 'Class added successfully!');
