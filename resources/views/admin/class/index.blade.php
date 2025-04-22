@@ -57,44 +57,54 @@
                                     Add New Class
                                 </a>
                             </button>
+
+                            <a href="{{ route('admin.class.trash') }}"
+                                class="btn btn-dark text-white text-decoration-none ms-2">
+                                Trash
+                            </a>
+
                         </div>
                         <!-- /.card-header -->
                         {{-- @if ($classess->get()->isNotEmpty()) --}}
 
-                            <table class="table">
-                                <thead>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Status</th>
+                                    <th>Created By</th>
+                                    <th>Created At</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($classess as $class)
                                     <tr>
-                                        <th>ID</th>
-                                        <th>Name</th>
-                                        <th>Status</th>
-                                        <th>Created By</th>
-                                        <th>Created At</th>
-                                        <th>Actions</th>
+                                        <td>{{ $class->id }}</td>
+                                        <td>{{ $class->name }}</td>
+                                        <td>{{ $class->status }}</td>
+                                        <td>{{ $class->created_by_name }}</td>
+                                        <td>{{ $class->created_at }}</td>
+                                        <td class="d-flex gap-2">
+                                            <a href="{{ route('admin.class.edit', ['class' => $class->id]) }}"
+                                                class="btn btn-success btn-sm">
+                                                Edit
+                                            </a>
+                                            <form action="{{ route('admin.class.destroy', ['class' => $class->id]) }}"
+                                                method="POST"
+                                                onsubmit="return confirm('Are you sure you want to delete this class?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    Delete
+                                                </button>
+                                            </form>
+                                        </td>
                                     </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($classess as $class)
-                                        <tr>
-                                            <td>{{ $class->id }}</td>
-                                            <td>{{ $class->name }}</td>
-                                            <td>{{ $class->status }}</td>
-                                            <td>{{ $class->created_by_name }}</td>
-                                            <td>{{ $class->created_at }}</td>
-                                            <td class="d-flex gap-2">
-                                                <a href="{{ route('admin.class.edit', $class->id) }}"
-                                                    class="btn btn-success btn-sm">Edit</a>
-                                                <form action="{{ route('admin.class.destroy', $class->id) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('delete')
-                                                    <button type="submit"
-                                                        class="btn btn are_you_shur btn-sm btn-danger">Delete</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                @endforeach
+                            </tbody>
+                        </table>
                         {{-- @else
                             <p class="text-center">No admins found.</p>
                         @endif --}}

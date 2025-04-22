@@ -29,8 +29,7 @@ class ClassModel extends Model
             $query->whereDate('classess.created_at', '=', $request->date);
         }
 
-        return $query->where('classess.is_deleted', '=', 'no')
-            ->orderBy('classess.id', 'desc')
+        return $query->orderBy('classess.id', 'desc')
             ->paginate(5);
     }
 }

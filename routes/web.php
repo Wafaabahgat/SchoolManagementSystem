@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ClassController;
+use App\Http\Controllers\ClassSubjectController;
 use App\Http\Controllers\SubjectController;
 use Illuminate\Support\Facades\Route;
 
@@ -39,7 +40,23 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
 
     // Class
     Route::resource('/class', ClassController::class);
+    Route::get('/class/trash', [ClassController::class, 'trash'])->name('class.trash');
+    Route::put('/class/{id}/restore', [ClassController::class, 'restore'])->name('class.restore');
+    Route::delete('/class/{id}/force-delete', [ClassController::class, 'forceDelete'])->name('class.force-delete');
+
+    // Subject
     Route::resource('/subject', SubjectController::class);
+    Route::get('/subject/trash', [SubjectController::class, 'trash'])->name('subject.trash');
+    Route::put('/subject/{id}/restore', [SubjectController::class, 'restore'])->name('subject.restore');
+    Route::delete('/subject/{id}/force-delete', [SubjectController::class, 'forceDelete'])->name('subject.force-delete');
+
+    // ClassSubjectController
+    Route::get('/assign_subject', [ClassSubjectController::class, 'index'])->name('assign_subject.index');
+    Route::get('/assign_subject/create', [ClassSubjectController::class, 'create'])->name('assign_subject.create');
+    Route::post('/assign_subject/create', [ClassSubjectController::class, 'insert'])->name('assign_subject.insert');
+    Route::get('/assign_subject/edit/{id}', [ClassSubjectController::class, 'edit'])->name('assign_subject.edit');
+    Route::patch('/assign_subject/edit/{id}', [ClassSubjectController::class, 'update'])->name('assign_subject.update');
+    Route::delete('/assign_subject', [ClassSubjectController::class, 'destroy'])->name('assign_subject.destroy');
 });
 
 

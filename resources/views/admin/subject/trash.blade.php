@@ -1,0 +1,80 @@
+@extends('layouts.app')
+
+@section('content')
+    <div class="content-wrapper p-3">
+
+        @include('_message')
+
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2 mt-4 d-flex align-items-center justify-content-between">
+                    <div class="col-auto">
+                        <h1>class Trash</h1>
+                    </div>
+
+                    <x-admin-breadcrumb address="List" />
+
+                </div>
+            </div>
+        </section>
+
+        <div class="col-md-12 mb-4">
+            <div class="card card-primary">
+                <form action="" method="get">
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <x-ui.input type="text" id="name" name="name" placeholder="Name"
+                                    value="{{ Request::get('name') }}" />
+                            </div>
+
+                            <div class="form-group col-md-3 mt-2">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                                <a href="{{ url('admin/class') }}" class="btn btn-success ms-2">Clear</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+
+        <!-- Main content -->
+        <section class="content mb-3">
+            <div class="container-fluid">
+                <div class="row">
+
+                    <div class="card">
+
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Status</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($classs as $class)
+                                    <tr>
+                                        <td>{{ $class->id }}</td>
+                                        <td>{{ $class->name }}</td>
+                                        <td>{{ $class->status }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        {{ $classs->withQueryString()->links() }}
+    </div>
+@endsection

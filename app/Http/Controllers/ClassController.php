@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ClassRequest;
 use App\Models\ClassModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -38,14 +39,9 @@ class ClassController extends Controller
      * Store a newly created resource in storage.
      */
 
-    public function store(Request $request)
+    public function store(ClassRequest $request)
     {
         $data['head_title'] = 'Add New Class';
-
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'status' => 'required',
-        ]);
 
         ClassModel::create([
             'name' => $request->name,
@@ -82,18 +78,13 @@ class ClassController extends Controller
      * Update the specified resource in storage.
      */
 
-    public function update(Request $request, string $id)
+    public function update(ClassRequest $request, string $id)
     {
         $class = ClassModel::findOrFail($id);
 
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'status' => 'required',
-        ]);
-
         $class->update([
-            'name' => $validated['name'],
-            'status' => $validated['status'],
+            'name' => $request->name,
+            'status' => $request->status,
         ]);
 
         return redirect()->route('admin.class.index')->with('success', 'Class updated successfully!');
@@ -109,5 +100,33 @@ class ClassController extends Controller
         $class->delete();
 
         return redirect()->route('admin.class.index')->with('success', 'Class Deleted successfully!');
+    }
+
+
+    public function trash()
+    {
+        $data['head_title'] = 'Trash class';
+        $data['classs'] = ClassModel::onlyTrashed()->paginate(5);
+        return view('admin.class.trash', $data);
+    }
+
+
+    public function restore(Request $request, string $id)
+    {
+        $data['head_title'] = 'Restore class';
+
+        $data = ClassModel::onlyTrashed()->findOrFail($id);
+        $data->restore();
+
+        return redirect()->route('admin.class.trash')->with('success', 'class Restored successfully!');
+    }
+
+    public function forceDelete(string $id)
+    {
+
+        $data = ClassModel::onlyTrashed()->findOrFail($id);
+        $data->forceDelete();
+
+        return redirect()->route('admin.class.trash')->with('success', 'class Deleted successfully!');
     }
 }

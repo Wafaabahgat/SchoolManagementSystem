@@ -23,6 +23,7 @@ return new class extends Migration
     {
         Schema::table('classess', function (Blueprint $table) {
             $table->dropSoftDeletes();
+
         });
     }
 };

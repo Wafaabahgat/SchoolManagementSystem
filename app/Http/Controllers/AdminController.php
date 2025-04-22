@@ -28,14 +28,8 @@ class AdminController extends Controller
         return view('admin.admin.add', $data);
     }
 
-    public function insert(Request $request)
+    public function insert(AdminRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:4',
-            // 'role' => 'required|in:admin,user',
-        ]);
 
         $data['head_title'] = 'Add New Admin';
         // dd($request->all());

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SubjectRequest;
 use App\Models\Subject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -32,15 +33,9 @@ class SubjectController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(SubjectRequest $request)
     {
         $data['head_title'] = 'Add New Subject';
-
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'type' => 'required',
-            'status' => 'required',
-        ]);
 
         Subject::create([
             'name' => $request->name,
@@ -71,21 +66,14 @@ class SubjectController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(SubjectRequest $request, string $id)
     {
         $subject = Subject::findOrFail($id);
 
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'status' => 'required',
-            'type' => 'required',
-
-        ]);
-
         $subject->update([
-            'name' => $validated['name'],
-            'status' => $validated['status'],
-            'type' => $validated['type'],
+            'name' => $request->name,
+            'status' => $request->status,
+            'type' => $request->type,
         ]);
 
         return redirect()->route('admin.subject.index')->with('success', 'Subject updated successfully!');
@@ -100,5 +88,32 @@ class SubjectController extends Controller
         $subject->delete();
 
         return redirect()->route('admin.subject.index')->with('success', 'Subject Deleted successfully!');
+    }
+
+    public function trash()
+    {
+        $data['head_title'] = 'Trash Subject';
+        $data['subjects'] = Subject::onlyTrashed()->paginate(5);
+        return view('admin.subject.trash', $data);
+    }
+
+
+    public function restore(Request $request, string $id)
+    {
+        $data['head_title'] = 'Restore Subject';
+
+        $data = Subject::onlyTrashed()->findOrFail($id);
+        $data->restore();
+
+        return redirect()->route('admin.subject.trash')->with('success', 'Subject Restored successfully!');
+    }
+
+    public function forceDelete(string $id)
+    {
+
+        $data = Subject::onlyTrashed()->findOrFail($id);
+        $data->forceDelete();
+
+        return redirect()->route('admin.subject.trash')->with('success', 'Subject Deleted successfully!');
     }
 }

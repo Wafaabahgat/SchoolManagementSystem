@@ -54,6 +54,13 @@
                                     Add New Subject
                                 </a>
                             </button>
+                            {{-- @dd(route('admin.subject.trash')); --}}
+
+                            <a href="{{ route('admin.subject.trash') }}"
+                                class="btn btn-dark text-white text-decoration-none ms-2">
+                                Trash
+                            </a>
+
                         </div>
                         <!-- /.card-header -->
                         {{-- @if ($classess->get()->isNotEmpty()) --}}
