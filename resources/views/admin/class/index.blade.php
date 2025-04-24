@@ -19,7 +19,7 @@
             </div>
         </section>
 
-        {{-- <div class="col-md-12 mb-4">
+        <div class="col-md-12 mb-4">
             <div class="card card-primary">
                 <form action="" method="get">
                     <div class="card-body">
@@ -29,20 +29,17 @@
                                 <x-ui.input type="text" id="name" name="name" placeholder="Name"
                                     value="{{ Request::get('name') }}" />
                             </div>
-                            <div class="col-md-3">
-                                <x-ui.input type="email" id="email" name="email" placeholder="Email"
-                                    value="{{ Request::get('email') }}" />
-                            </div>
+
                             <div class="form-group col-md-3 mt-2">
                                 <button type="submit" class="btn btn-primary">Search</button>
-                                <a href="{{ url('admin/admin/list') }}" class="btn btn-success ms-2">Clear</a>
+                                <a href="{{ url('admin/class') }}" class="btn btn-success ms-2">Clear</a>
                             </div>
                         </div>
                     </div>
                 </form>
 
             </div>
-        </div> --}}
+        </div>
 
 
         <!-- Main content -->

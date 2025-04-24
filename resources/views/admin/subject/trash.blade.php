@@ -10,7 +10,7 @@
             <div class="container-fluid">
                 <div class="row mb-2 mt-4 d-flex align-items-center justify-content-between">
                     <div class="col-auto">
-                        <h1>class Trash</h1>
+                        <h1>Subject Trash</h1>
                     </div>
 
                     <x-admin-breadcrumb address="List" adminLabel="Subject" adminUrl="{{ route('admin.subject.index') }}" />
@@ -32,7 +32,7 @@
 
                             <div class="form-group col-md-3 mt-2">
                                 <button type="submit" class="btn btn-primary">Search</button>
-                                <a href="{{ url('admin/class') }}" class="btn btn-success ms-2">Clear</a>
+                                <a href="{{ url('admin/subject-trash') }}" class="btn btn-success ms-2">Clear</a>
                             </div>
                         </div>
                     </div>
@@ -55,16 +55,42 @@
                                 <tr>
                                     <th>ID</th>
                                     <th>Name</th>
+                                    <th>Type</th>
                                     <th>Status</th>
-
+                                    <th>Deleted At</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($subjects as $class)
+                                @foreach ($subjects as $subject)
                                     <tr>
-                                        <td>{{ $class->id }}</td>
-                                        <td>{{ $class->name }}</td>
-                                        <td>{{ $class->status }}</td>
+                                        <td>{{ $subject->id }}</td>
+                                        <td>{{ $subject->name }}</td>
+                                        <td>{{ $subject->type }}</td>
+                                        <td>{{ $subject->status }}</td>
+                                        <td>{{ $subject->deleted_at }}</td>
+                                        <td class="d-flex gap-2">
+                                            <!-- Restore Form - Changed to POST with method spoofing -->
+                                            <form action="{{ route('admin.subject.restore', $subject->id) }}" method="POST"
+                                                onsubmit="return confirm('Are you sure you want to restore this subject?')">
+                                                @csrf
+                                                @method('PUT')
+                                                <button type="submit" class="btn btn-sm btn-success">
+                                                    Restore
+                                                </button>
+                                            </form>
+
+                                            <!-- Force Delete Form - This is correct -->
+                                            <form action="{{ route('admin.subject.force-delete', $subject->id) }}"
+                                                method="POST"
+                                                onsubmit="return confirm('Are you sure you want to permanently delete this subject?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    Delete
+                                                </button>
+                                            </form>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

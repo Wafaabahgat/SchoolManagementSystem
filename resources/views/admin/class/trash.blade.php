@@ -10,7 +10,7 @@
             <div class="container-fluid">
                 <div class="row mb-2 mt-4 d-flex align-items-center justify-content-between">
                     <div class="col-auto">
-                        <h1>class Trash</h1>
+                        <h1>Class Trash</h1>
                     </div>
 
                     <x-admin-breadcrumb address="List" adminLabel="Class" adminUrl="{{ route('admin.class.index') }}" />
@@ -32,7 +32,7 @@
 
                             <div class="form-group col-md-3 mt-2">
                                 <button type="submit" class="btn btn-primary">Search</button>
-                                <a href="{{ url('admin/class') }}" class="btn btn-success ms-2">Clear</a>
+                                <a href="{{ url('admin/class-trash') }}" class="btn btn-success ms-2">Clear</a>
                             </div>
                         </div>
                     </div>
@@ -56,6 +56,8 @@
                                     <th>ID</th>
                                     <th>Name</th>
                                     <th>Status</th>
+                                    <th>Deleted At</th>
+                                    <th>Actions</th>
 
                                 </tr>
                             </thead>
@@ -65,6 +67,29 @@
                                         <td>{{ $class->id }}</td>
                                         <td>{{ $class->name }}</td>
                                         <td>{{ $class->status }}</td>
+                                        <td>{{ $class->deleted_at }}</td>
+                                        <td class="d-flex gap-2">
+                                            <!-- Restore Form - Changed to POST with method spoofing -->
+                                            <form action="{{ route('admin.class.restore', $class->id) }}" method="POST"
+                                                onsubmit="return confirm('Are you sure you want to restore this class?')">
+                                                @csrf
+                                                @method('PUT')
+                                                <button type="submit" class="btn btn-sm btn-success">
+                                                    Restore
+                                                </button>
+                                            </form>
+
+                                            <!-- Force Delete Form - This is correct -->
+                                            <form action="{{ route('admin.class.force-delete', $class->id) }}"
+                                                method="POST"
+                                                onsubmit="return confirm('Are you sure you want to permanently delete this class?')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger">
+                                                    Delete
+                                                </button>
+                                            </form>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>

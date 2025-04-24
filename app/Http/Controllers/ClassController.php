@@ -103,10 +103,17 @@ class ClassController extends Controller
     }
 
 
-    public function trash()
+    public function trash(Request $request)
     {
         $data['head_title'] = 'Trash class';
-        $data['classs'] = ClassModel::onlyTrashed()->paginate(5);
+
+        $query = ClassModel::onlyTrashed();
+
+        if (!empty($request->name)) {
+            $query->where('classess.name', 'like', '%' . $request->name . '%');
+        }
+
+        $data['classs'] = $query->paginate(5);
         return view('admin.class.trash', $data);
     }
 

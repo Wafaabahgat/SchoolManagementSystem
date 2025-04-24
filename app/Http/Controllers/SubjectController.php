@@ -90,10 +90,17 @@ class SubjectController extends Controller
         return redirect()->route('admin.subject.index')->with('success', 'Subject Deleted successfully!');
     }
 
-    public function trash()
+    public function trash(Request $request)
     {
         $data['head_title'] = 'Trash Subject';
-        $data['subjects'] = Subject::onlyTrashed()->paginate(5);
+
+        $query = Subject::onlyTrashed();
+
+        if (!empty($request->name)) {
+            $query->where('subjects.name', 'like', '%' . $request->name . '%');
+        }
+
+        $data['subjects'] = $query->paginate(5);
         return view('admin.subject.trash', $data);
     }
 
