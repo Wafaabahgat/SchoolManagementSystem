@@ -13,7 +13,7 @@
                         <h1>Subject List</h1>
                     </div>
 
-                    <x-admin-breadcrumb address="List" />
+                    <x-admin-breadcrumb address="List" adminLabel="Subject" adminUrl="{{ route('admin.subject.index') }}" />
 
                 </div>
             </div>

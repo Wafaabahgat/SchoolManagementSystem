@@ -40,13 +40,13 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
 
     // Class
     Route::resource('/class', ClassController::class);
-    Route::get('/class/trash', [ClassController::class, 'trash'])->name('class.trash');
+    Route::get('/class-trash', [ClassController::class, 'trash'])->name('class.trash');
     Route::put('/class/{id}/restore', [ClassController::class, 'restore'])->name('class.restore');
     Route::delete('/class/{id}/force-delete', [ClassController::class, 'forceDelete'])->name('class.force-delete');
 
     // Subject
     Route::resource('/subject', SubjectController::class);
-    Route::get('/subject/trash', [SubjectController::class, 'trash'])->name('subject.trash');
+    Route::get('/subject-trash', [SubjectController::class, 'trash'])->name('subject.trash');
     Route::put('/subject/{id}/restore', [SubjectController::class, 'restore'])->name('subject.restore');
     Route::delete('/subject/{id}/force-delete', [SubjectController::class, 'forceDelete'])->name('subject.force-delete');
 

@@ -13,7 +13,7 @@
                         <h1>class Trash</h1>
                     </div>
 
-                    <x-admin-breadcrumb address="List" adminLabel="Subject" adminUrl="{{ route('admin.subject.index') }}" />
+                    <x-admin-breadcrumb address="List" adminLabel="Class" adminUrl="{{ route('admin.class.index') }}" />
 
                 </div>
             </div>
@@ -60,7 +60,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($subjects as $class)
+                                @foreach ($classs as $class)
                                     <tr>
                                         <td>{{ $class->id }}</td>
                                         <td>{{ $class->name }}</td>
@@ -75,6 +75,6 @@
             </div>
         </section>
 
-        {{ $subjects->withQueryString()->links() }}
+        {{ $classs->withQueryString()->links() }}
     </div>
 @endsection
