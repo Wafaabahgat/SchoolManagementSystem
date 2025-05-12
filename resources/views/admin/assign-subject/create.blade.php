@@ -4,7 +4,7 @@
     <div class="p-2">
         @include('_message')
 
-        <x-admin-breadcrumb address="Add" />
+        <x-admin-breadcrumb address="Add" adminLabel="Subject Assign" adminUrl="{{ route('admin.assign-subject.index') }}" />
 
         <div class="container-fluid">
             <div class="row">

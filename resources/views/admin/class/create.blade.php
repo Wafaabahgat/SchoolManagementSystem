@@ -4,7 +4,7 @@
     <div class="p-2">
         @include('_message')
 
-        <x-admin-breadcrumb address="Add" />
+        <x-admin-breadcrumb address="Add" adminLabel="Class" adminUrl="{{ route('admin.class.index') }}" />
 
         <div class="col-md-12 mt-2">
             <div class="card card-primary">
