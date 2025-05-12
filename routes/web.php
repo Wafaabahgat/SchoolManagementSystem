@@ -51,12 +51,15 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['admin']],
     Route::delete('/subject/{id}/force-delete', [SubjectController::class, 'forceDelete'])->name('subject.force-delete');
 
     // ClassSubjectController
-    Route::get('/assign_subject', [ClassSubjectController::class, 'index'])->name('assign_subject.index');
-    Route::get('/assign_subject/create', [ClassSubjectController::class, 'create'])->name('assign_subject.create');
-    Route::post('/assign_subject/create', [ClassSubjectController::class, 'insert'])->name('assign_subject.insert');
-    Route::get('/assign_subject/edit/{id}', [ClassSubjectController::class, 'edit'])->name('assign_subject.edit');
-    Route::patch('/assign_subject/edit/{id}', [ClassSubjectController::class, 'update'])->name('assign_subject.update');
-    Route::delete('/assign_subject', [ClassSubjectController::class, 'destroy'])->name('assign_subject.destroy');
+    Route::get('/assign-subject', [ClassSubjectController::class, 'index'])->name('assign-subject.index');
+    Route::get('/assign-subject/create', [ClassSubjectController::class, 'create'])->name('assign-subject.create');
+    Route::post('/assign-subject/create', [ClassSubjectController::class, 'insert'])->name('assign-subject.insert');
+    Route::get('/assign-subject/edit/{id}', [ClassSubjectController::class, 'edit'])->name('assign-subject.edit');
+    Route::delete('/assign-subject/{id}', [ClassSubjectController::class, 'destroy'])->name('assign-subject.destroy');
+    Route::get('/assign-subject-trash', [ClassSubjectController::class, 'trash'])->name('assign-subject.trash');
+    Route::put('/assign-subject/{id}/restore', [ClassSubjectController::class, 'restore'])->name('assign-subject.restore');
+    Route::delete('/assign-subject/{id}/force-delete', [ClassSubjectController::class, 'forceDelete'])->name('assign-subject.force-delete');
+    Route::patch('/assign-subject/edit/{id}', [ClassSubjectController::class, 'update'])->name('assign-subject.update');
 });
 
 

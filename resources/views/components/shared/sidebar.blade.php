@@ -34,6 +34,13 @@
                         <p>Subject</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ url('admin/assign-subject') }}"
+                        class="nav-link {{ Request::is('admin/assign-subject') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>Assign Subject</p>
+                    </a>
+                </li>
             @endif
 
             {{-- Student --}}

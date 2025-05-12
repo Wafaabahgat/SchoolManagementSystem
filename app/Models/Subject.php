@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Subject extends Model
 {
@@ -29,5 +30,12 @@ class Subject extends Model
         return $query->where('subjects.is_deleted', '=', 'no')
             ->orderBy('subjects.id', 'desc')
             ->paginate(5);
+    }
+
+    public function classes(): BelongsToMany
+    {
+        return $this->belongsToMany(ClassModel::class, 'class_subjects', 'subject_id', 'class_id')
+            ->withPivot('status', 'is_deleted', 'created_by')
+            ->withTimestamps();
     }
 }
